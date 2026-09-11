@@ -286,7 +286,7 @@ function GlobalStyles() {
       /* ---------- hoja (vista previa / impresión) ---------- */
       .sheet{ width:100%; }
       .sheet-header{ text-align:center; margin-bottom:26px; }
-      .sheet-logo{ width:96px; height:96px; border-radius:50%; object-fit:cover; margin:0 auto 10px; box-shadow:0 6px 14px rgba(91,58,46,0.16); display:block; }
+      .sheet-logo{ width:96px; height:96px; border-radius:50%; background-size:cover; background-position:center; margin:0 auto 10px; box-shadow:0 6px 14px rgba(91,58,46,0.16); display:block; }
       .sheet-monogram{ width:96px; height:96px; border-radius:50%; background:linear-gradient(135deg,var(--terracotta),var(--gold)); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:40px; font-weight:700; margin:0 auto 10px; }
       .sheet-brand{ font-family:'Playfair Display',serif; font-style:italic; font-weight:700; font-size:32px; margin:0 0 2px; color:var(--deep); }
       .sheet-lema{ font-size:13px; color:var(--ink-soft); margin:0; }
@@ -298,7 +298,7 @@ function GlobalStyles() {
       .sheet-item:nth-child(3n+1){ transform:rotate(1deg); }
       .sheet-num{ position:absolute; top:-8px; left:-8px; width:24px; height:24px; border-radius:50%; background:var(--terracotta); color:#fff; font-family:'Playfair Display',serif; font-weight:700; font-size:12px; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 6px rgba(0,0,0,0.18); }
       .sheet-photo{ width:100%; height:112px; border-radius:10px; overflow:hidden; background:#f1e4d8; }
-      .sheet-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+      .sheet-photo-img{ width:100%; height:100%; background-size:cover; background-position:center; }
       .sheet-photo-empty{ width:100%; height:100%; background:repeating-linear-gradient(45deg,#f1e4d8,#f1e4d8 8px,#ecdbc9 8px,#ecdbc9 16px); }
       .sheet-name{ font-family:'Playfair Display',serif; font-size:14.5px; margin:10px 2px 0; line-height:1.25; color:var(--deep); }
       .sheet-meta{ display:flex; justify-content:space-between; align-items:baseline; margin-top:8px; padding-top:7px; border-top:1px dashed rgba(198,123,92,0.4); }
@@ -349,7 +349,12 @@ function CatalogSheet({ catalog }) {
     <div className="sheet">
       <div className="sheet-header">
         {logo ? (
-          <img className="sheet-logo" src={logo} alt={marca || "Logo"} />
+          <div
+            className="sheet-logo"
+            role="img"
+            aria-label={marca || "Logo"}
+            style={{ backgroundImage: `url(${logo})` }}
+          />
         ) : (
           <div className="sheet-monogram">{initials}</div>
         )}
@@ -367,7 +372,12 @@ function CatalogSheet({ catalog }) {
               <span className="sheet-num">{i + 1}</span>
               <div className="sheet-photo">
                 {p.imagen ? (
-                  <img src={p.imagen} alt={p.nombre || "Producto"} />
+                  <div
+                    className="sheet-photo-img"
+                    role="img"
+                    aria-label={p.nombre || "Producto"}
+                    style={{ backgroundImage: `url(${p.imagen})` }}
+                  />
                 ) : (
                   <div className="sheet-photo-empty" />
                 )}
